@@ -1,0 +1,88 @@
+<h1>Restaurants</h1>
+<table id="restaurant-table">
+    <thead>
+        {{!-- First row as header --}}
+        <tr>
+            {{#each headers}}
+            <th>
+                {{this}}
+            </th>
+            {{/each}}
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{!-- For each row, print the fields--}}
+        {{#each data}}
+        <tr>
+            <form action="/update_delete_restaurant" method="POST">
+                <td><input name="restaurant_id" type="text" value="{{this.RES_ID}}" readonly></td>
+                <td><input name="restaurant_name" type="text" value="{{this.RES_NAME}}"></td>
+                <td><input name="restaurant_address" value="{{this.RES_ADDRESS}}"></td>
+                <td><input list="cities" type="text" name="restaurant_cityname" value="{{this.CITY_NAME}}"></td>
+                <td><input list="states" type="text" name="restaurant_statename" value="{{this.ST_NAME}}"></td>
+                <td><input list="countries" type="text" name="restaurant_countryname" value="{{this.CTR_NAME}}"></td>
+                <td><input list="zipcodes" type="number" name="restaurant_zipcode" value="{{this.ZIP_CODE}}"></td>
+                <td><input type="submit" name="action" value="Update"/></td>
+                <td><input type="submit" name="action" value="Delete"/></td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<br>
+    <b>Update:</b> Please edit data in the table directly and click 'Update'.<br>
+    <b>Delete:</b> Please click 'Delete' next to each record.<br>
+{{!--Input fields--}}
+
+<h2>Add restaurant</h2>
+<p>Please enter the name and code of restaurant and press submit button to add a new restaurant</p>
+<form id="add-restaurant-form" method="POST" action="/add-restaurant-form">
+
+    <label for="input-restaurantname">Restaurant Name: </label>
+        <input style="margin-left: 50px;" type="text" name="input-restaurantname" id="input-restaurantname">
+
+    <br>
+    <label for="input-restaurant_address">Restaurant Address: </label>
+        <input style="margin-left: 38px;" type="text" name="input-restaurant_address" id="input-restaurant_address">
+
+    <br>
+    <label for="input-restaurant_cityname">Restaurant City Name: </label>
+    <input style="margin-left: 20px;" list="cities" type="text" name="input-restaurant_cityname" id="input-restaurant_cityname">
+        <datalist id="cities">
+            {{#each cities}}
+                <option value="{{this.CITY_NAME}}">
+            {{/each}}
+        </datalist>
+
+    <br>
+    <label for="input-restaurant_statename">Restaurant State Name: </label>
+    <input style="margin-left: 16px;" list="states" type="text" name="input-restaurant_statename" id="input-restaurant_statename">
+        <datalist id="states">
+            {{#each states}}
+                <option value="{{this.ST_NAME}}">
+            {{/each}}
+        </datalist>
+
+    <br>
+    <label for="input-restaurant_countryname">Restaurant Country Name: </label>
+    <input style="margin-left: -4px;" list="countries" type="text" name="input-restaurant_countryname" id="input-restaurant_countryname">
+        <datalist id="countries">
+            {{#each countries}}
+                <option value="{{this.CTR_NAME}}">
+            {{/each}}
+        </datalist>
+
+    <br>
+    <label for="input-restaurant_zipcode">Restaurant Zip Code: </label>
+    <input style="margin-left: 30px;" list="zipcodes" type="text" name="input-restaurant_zipcode" id="input-restaurant_zipcode">
+        <datalist id="zipcodes">
+            {{#each zipcodes}}
+                <option value="{{this.ZIP_CODE}}">
+            {{/each}}
+        </datalist>
+
+    <br>
+    <input type="submit">
+</form>

@@ -1,0 +1,142 @@
+body {
+  background-color: grey;
+}
+
+ul {
+  list-style-type: none;
+  margin-bottom: 5px;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+
+li {
+  float: left;
+  font-size: 20px;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111111;
+}
+
+.add {
+  background: darkgrey;
+  padding: 20px 50px 60px 50px;
+}
+
+.add_c {
+  background: darkgrey;
+  padding: 50px 50px 200px 50px;
+}
+
+.add_customer {
+  background: darkgrey;
+  padding: 50px 50px 350px 50px;
+}
+
+.add_rst {
+  background: darkgrey;
+  padding: 60px 50px 390px 50px;
+}
+
+.add_rze {
+  background: darkgrey;
+  padding: 50px 50px 50px 50px;
+}
+
+.delete {
+  background: darkgrey;
+  padding: 20px 50px 80px 50px;
+}
+
+.delete_rze {
+  background: darkgrey;
+  padding: 50px 50px 450px 50px;
+}
+
+.delete_credit {
+  background: darkgrey;
+  padding: 50px 50px 200px 50px;
+}
+
+.child {
+  float: left;
+}
+
+.btnchild {
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+#indexTitle {
+  text-align: center;
+  font-size: 3em;
+  padding-bottom: 10px;
+}
+
+#pageTitle {
+  text-align: center;
+  font-size: 5em;
+  padding-bottom: 10px;
+}
+
+button {
+  margin-top: 10px;
+  margin-right: 0px;
+  margin-left: 50px;
+  font-size: 20px;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 25px 25px 50px;
+  font-size: 1em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  margin-top: 60px;
+}

@@ -1,0 +1,51 @@
+<!-- cities.hbs -->
+<h1>Cities</h1>
+
+{{!-- Create a table --}}
+<table id="city-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each headers}}
+            <th>
+                {{this}}
+            </th>
+            {{/each}}
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the fields--}}
+        {{#each data}}
+        <tr>
+
+            <form action="/update_delete_city" method="POST">
+                <td><input name="city_id" value="{{this.CITY_ID}}" readonly></td>
+                <td><input name="city_name" value="{{this.CITY_NAME}}"></td>
+                <td><input type="submit" name="action" value="Update" /></td>
+                <td><input type="submit" name="action" value="Delete" /></td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<br>
+    <b>Update:</b> Please edit data in the table directly and click 'Update'.<br>
+    <b>Delete:</b> Please click 'Delete' next to each record.<br>
+
+
+<h2>Add City</h2>
+<p>Please enter the name of city and press submit button to add a new city!</p>
+<form id="add-city-form" method="POST" action="/add-city-form">
+    <label for="input-cityname">City Name: </label>
+    <input type="text" name="input-cityname" id="input-cityname">
+    <input type="submit">
+</form>

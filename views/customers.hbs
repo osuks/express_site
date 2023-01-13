@@ -1,0 +1,169 @@
+<!-- cities.hbs -->
+<h1>Customers</h1>
+
+{{!-- Create a table --}}
+<table id="customer-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0].[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the fields--}}
+
+            {{#each data.[0]}}
+        <form action="/update_delete_customer" method="POST">
+            <tr>
+                <td><input name="cus_id" value="{{this.No}}" readonly></td>
+                <td><input name="cus_fname" value="{{{this.[First Name]}}}"></td>
+                <td><input name="cus_lname" value="{{{this.[Last Name]}}}"></td>
+                <td><input name="cus_addr" value="{{this.Address}}"></td>
+                <td><input name="cus_city" value="{{this.City}}"></td>
+                <td><input name="cus_state" value="{{this.State}}"></td>
+                <td><input name="cus_ctr" value="{{this.Country}}"></td>
+                <td><input name="cus_zip" value="{{{this.[Zip Code]}}}"></td>
+                <td><input type="submit" name="action" value="Delete" /></td>
+        </form>
+                <td>
+                    <input type="submit" value="Update" onClick="{{custom_update @index this ../this}}" ; />
+                </td>
+            </tr>
+            {{/each}}
+    </tbody>
+</table>
+<br>
+    <b>Update:</b> Please click 'Update' and follow prompt.<br>
+    <b>Delete:</b> Please click 'Delete' next to each record.<br>
+
+<h2>Add Customer</h2>
+<p>Please provide first/last name, address, city, state, and zip and click 'Add' button</p>
+<form id="add_customer" method="POST" action="/add_customer">
+    <label for="input_cus_first_name">First Name: </label>
+    <input type="text" name="input_cus_first_name" id="input_cus_first_name" /></br>
+    <label for="input_cus_last_name">Last Name: </label>
+    <input style="margin-left: 2px;" type="text" name="input_cus_last_name" id="input_cus_last_name" /></br>
+    <label for="input_cus_addr">Address: </label>
+    <input style="margin-left:18px;" type="text" name="input_cus_addr" id="input_cus_addr" /></br>
+    <label for="input_city">City: </label>
+    <select name="option_city" style="margin-left: 43px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[1]}}
+        <option value="{{this.id}}">{{this.city_name}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="input_state">State: </label>
+    <select name="option_st" style="margin-left: 40px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[2]}}
+        <option value="{{this.id}}">{{this.state_name}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="input_ctr">Country: </label>
+    <select name="option_ctr" style="margin-left: 20px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[3]}}
+        <option value="{{this.id}}">{{this.country_name}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="input_zip">Zip Code: </label>
+    <select name="option_zip" style="margin-left: 12px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[4]}}
+        <option value="{{this.id}}">{{this.zipcode}}</option>
+        {{/each}}
+    </select>
+
+    <br>
+    <input type="submit" value="Add">
+</form>
+
+
+<SCRIPT TYPE="text/javascript"> function popup(mylink, data, root) {
+        console.log(data);
+        console.log(root);
+        let json_data = JSON.stringify(data);
+        json_data = JSON.parse(json_data);
+        let first_name = json_data['First Name'];
+        let last_name = json_data['Last Name'];
+        let address = json_data['Address'];
+        let cus_id = json_data['No'];
+        let cus_city = json_data['City'];
+        let cus_state = json_data['State'];
+        let cus_country = json_data['Country'];
+        let cus_zip = json_data['Zip Code'];
+
+        console.log(first_name);
+        console.log(last_name);
+        console.log(address);
+        console.log(cus_id);
+
+        let newWin = window.open("/", "_blank", 'height=600,width=600,left=100,' +
+            'top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,' +
+            'directories=no, status=yes');
+
+        let update_form = `<h2>Please Update Customer</h2>
+<p>Please provide first/last name, address, city, state, and zip and click 'Add' button</p>
+<form id="update_customer" method="POST" action="/update_delete_customer">
+    <input type="hidden" id="cus_id" name="cus_id" value="${cus_id}">
+    <label for="input_cus_first_name">First Name: </label>
+    <input type="text" name="input_cus_first_name" id="input_cus_first_name" value="${first_name}" /></br>
+    <label for="input_cus_last_name">Last Name: </label>
+    <input type="text" name="input_cus_last_name" id="input_cus_last_name" value="${last_name}" /></br>
+    <label for="input_cus_addr">Address: </label>
+    <input type="text" name="input_cus_addr" id="input_cus_addr" value="${address}" /></br>
+    <label for="input_city">City: </label>
+    <select name="option_city">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[1]}}
+        <option id="input_city_id" value="{{this.id}}" >{{this.city_name}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="input_state">State: </label>
+    <select name="option_st">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[2]}}
+        <option id= "input_state_id" value="{{this.id}}" >{{this.state_name}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="input_ctr">Country: </label>
+    <select name="option_ctr">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[3]}}
+        <option id="input_country_id" value="{{this.id}}" >{{this.country_name}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="input_zip">Zip Code: </label>
+    <select name="option_zip">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[4]}}
+        <option id="input_zip_id" value="{{this.id}}" >{{this.zipcode}}</option>
+        {{/each}}
+    </select>
+
+    <br>
+    <input type="submit" name="action" value="Update">
+</form>`;
+        newWin.document.write(update_form);
+
+    }
+</SCRIPT>

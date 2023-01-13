@@ -1,0 +1,55 @@
+<h1>Search</h1>
+<h2>Search Reservation by Customer Last Name</h2>
+<p>Please enter customer's last name and press submit button</p>
+<form id="search_form" method="GET" action="/search">
+    <p>Customer Last Name: <input type="text" name="input_lastname" id="input_lastname"></p>
+    <input type="submit">
+</form>
+<br>
+<table id="search_table">
+    <thead>
+        {{!-- First row as header --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{!-- For each row, print the fields--}}
+        {{#each data}}
+        <form action="/update_delete_rez" method="POST">
+            <tr>
+                {{!-- <td><input name="rez_id" value="{{this}}" readonly></td> --}}
+                <td><input name="rez_id" value="{{{this.[Reservation ID]}}}" readonly></td>
+                <td><input name="rez_date" value="{{{this.[Reservation Date]}}}"></td>
+                <td><input name="cus_fname" value="{{{this.[Customer First Name]}}}"></td>
+                <td><input name="cus_lname" value="{{{this.[Customer Last Name]}}}"></td>
+                <td><input name="res_name" value="{{this.Restaurant}}"></td>
+                <td><input type="submit" name="action" value="Delete" /></td>
+        </form>
+        <td>
+            <input type="submit" value="Update" onClick="{{custom_update @index this ../this}}" ; />
+        </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<SCRIPT TYPE="text/javascript"> function popup(mylink, data, root) {
+        console.log(data);
+        let json_data = JSON.stringify(data);
+        json_data = JSON.parse(json_data);
+        let rez_id = json_data['Reservation ID'];
+        let rez_date = json_data['Reservation Date'];
+        let cus_fname = json_data['Customer First Name'];
+        let cus_lname = json_data['Customer Last Name'];
+        let res_name = json_data['Restaurant'];
+
+        location.href = '/update_rez?rez_id=' + rez_id + '&rez_date=' + rez_date +
+        '&cus_fname=' + cus_fname + 'cus_lname=' + cus_lname + 'res_name=' + res_name;
+
+    }
+</SCRIPT>

@@ -1,0 +1,46 @@
+<!-- cities.hbs -->
+<h1>Update Reservation</h1>
+
+{{!-- Create a table --}}
+
+
+{{#each data.[2]}}
+<h2>Welcome Back, {{this.[CUS_FNAME]}} {{this.[CUS_LNAME]}}!!</h2>
+<h3>Please update your reservation</h3>
+<h3>Current Reservation: {{this.[RES_NAME]}} on {{this.[REZ_DATETIME]}}</h3>
+{{/each}}
+<form id="update_reservation" method="POST" action="/update_reservation">
+    <label for="lb_res_name">Restaurant: </label>
+    <select name="option_res" style="margin-left: 5px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[1]}}
+        <option value="{{this.id}}">{{this.res_name}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="lb_customer">Customer: </label>
+    <select name="option_customer" style="margin-left: 10px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[0]}}
+        <option value="{{this.id}}">{{this.fullname}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label>Date: <input style="margin-left: 42px;" type="date" id="custom_date_input" onchange="handler(event)"></label>
+    <br>
+    <label>Time: </label>
+    <select name="option_time" style="margin-left: 39px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="5">"5:00 PM"</option>
+        <option value="6">"6:00 PM"</option>
+        <option value="7">"7:00 PM"</option>
+        <option value="8">"8:00 PM"</option>
+        <option value="9">"9:00 PM"</option>
+    </select>
+    <br>
+    <input type="hidden" id="cus_date" name="cus_date" value="">
+{{#each data.[2]}}
+    <input type="hidden" id="rez_id" name="rez_id" value="{{this.[REZ_ID]}}">
+{{/each}}
+    <input type="submit" value="Update">
+</form>

@@ -1,0 +1,42 @@
+<h1>States</h1>
+<table id="state-table">
+    <thead>
+        {{!-- First row as header --}}
+        <tr>
+            {{#each headers}}
+            <th>
+                {{this}}
+            </th>
+            {{/each}}
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{!-- For each row, print the fields--}}
+        {{#each data}}
+        <tr>
+            <form action="/update_delete_state" method="POST">
+                <td><input name="state_id" value="{{this.ST_ID}}" readonly></td>
+                <td><input name="state_name" value="{{this.ST_NAME}}"></td>
+                <td><input name="state_code" value="{{this.ST_CODE}}"></td>
+                <td><input type="submit" name="action" value="Update" /></td>
+                <td><input type="submit" name="action" value="Delete" /></td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<br>
+    <b>Update:</b> Please edit data in the table directly and click 'Update'.<br>
+    <b>Delete:</b> Please click 'Delete' next to each record.<br>
+{{!--Input fields--}}
+<h2>Add state</h2>
+<p>Please enter the name and code of state and press submit button to add a new state</p>
+<form id="add-state-form" method="POST" action="/add-state-form">
+    <label for="input-statename">State Name: </label>
+    <input type="text" name="input-statename" id="input-statename">
+    <label for="input-statecode">State Code: </label>
+    <input type="text" name="input-statecode" id="input-statecode">
+    <input type="submit">
+</form>

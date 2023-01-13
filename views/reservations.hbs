@@ -1,0 +1,99 @@
+<!-- cities.hbs -->
+<h1>Reservations</h1>
+
+{{!-- Create a table --}}
+<table id="reservation-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0].[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Update</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the fields--}}
+
+            {{#each data.[0]}}
+        <form action="/update_delete_rez" method="POST">
+            <tr>
+                <td><input name="rez_id" value="{{{this.[Reservation ID]}}}" readonly></td>
+                <td><input name="rez_date" value="{{{this.[Reservation Date]}}}"></td>
+                <td><input name="cus_fname" value="{{{this.[Customer First Name]}}}"></td>
+                <td><input name="cus_lname" value="{{{this.[Customer Last Name]}}}"></td>
+                <td><input name="res_name" value="{{this.Restaurant}}"></td>
+                <td><input type="submit" name="action" value="Delete" /></td>
+        </form>
+        <td>
+            <input type="submit" value="Update" onClick="{{custom_update @index this ../this}}" ; />
+        </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<br>
+    <b>Update:</b> Please click 'Update' and follow prompt.<br>
+    <b>Delete:</b> Please click 'Delete' next to each record.<br>
+
+
+<h2>Please make a reservation</h2>
+<p>Please provide the information for Restaurant, Customer, and Date to make a reservation!</p>
+<form id="add_reservation" method="POST" action="/add_reservation">
+    <label for="lb_res_name">Restaurant: </label>
+    <select name="option_res" style="margin-left: 5px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[2]}}
+        <option value="{{this.id}}">{{this.res_name}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="lb_customer">Customer: </label>
+    <select name="option_customer" style="margin-left: 10px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        {{#each data.[1]}}
+        <option value="{{this.id}}">{{this.fullname}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label>Date: <input style="margin-left: 42px;" type="date" id="custom_date_input" onchange="handler(event)"></label>
+    <br>
+    <label>Time: </label>
+    <select name="option_time" style="margin-left: 39px;">
+        <option value="" selected disabled hidden>Choose here</option>
+        <option value="5">"5:00 PM"</option>
+        <option value="6">"6:00 PM"</option>
+        <option value="7">"7:00 PM"</option>
+        <option value="8">"8:00 PM"</option>
+        <option value="9">"9:00 PM"</option>
+    </select>
+    <br>
+    <input type="hidden" id="cus_date" name="cus_date" value="">
+    <input type="submit" value="Add">
+</form>
+
+
+<SCRIPT TYPE="text/javascript"> function popup(mylink, data, root) {
+        console.log(data);
+        let json_data = JSON.stringify(data);
+        json_data = JSON.parse(json_data);
+        let rez_id = json_data['Reservation ID'];
+        let rez_date = json_data['Reservation Date'];
+        let cus_fname = json_data['Customer First Name'];
+        let cus_lname = json_data['Customer Last Name'];
+        let res_name = json_data['Restaurant'];
+
+        location.href = '/update_rez?rez_id=' + rez_id + '&rez_date=' + rez_date +
+        '&cus_fname=' + cus_fname + 'cus_lname=' + cus_lname + 'res_name=' + res_name;
+
+    }
+</SCRIPT>
